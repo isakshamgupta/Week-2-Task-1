@@ -1,0 +1,19 @@
+require 'json'
+require 'uri'
+require 'net/http'
+
+puts "Enter City Name To Get Current Temperature"
+city = gets.chomp #User input
+api="cc656317e74a2217909ac2a462b6b866" #openweather api
+appid= "&appid="
+url="https://api.openweathermap.org/data/2.5/weather?q="
+url=url+city+appid+api #concatination of strings
+
+uri = URI(url)
+res =Net::HTTP.get(uri)
+
+val=JSON.parse(res)
+vary= val["main"]["temp"] -273.0 #converting to °C
+vary=vary.to_i #converting float to int
+
+puts vary.to_s + " °C"
